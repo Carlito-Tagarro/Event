@@ -3,11 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2025 at 06:53 PM
+-- Generation Time: May 22, 2025 at 07:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
-CREATE DATABASE IF NOT EXISTS `event_ticket_booking` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `event_ticket_booking`;
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -67,6 +65,13 @@ CREATE TABLE `tickets` (
   `payment_status` enum('Pending','Confirmed','Cancelled') DEFAULT 'Pending'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`ticket_id`, `user_id`, `event_id`, `booking_date`, `number_of_tickets`, `total_price`, `payment_status`) VALUES
+(192, 11, 16, '2025-05-22 16:18:22', 1, 20.00, 'Confirmed');
+
 -- --------------------------------------------------------
 
 --
@@ -79,16 +84,20 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `email` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `user_type` enum('admin','booker') DEFAULT NULL
+  `user_type` enum('admin','booker') DEFAULT NULL,
+  `firstname` varchar(50) NOT NULL,
+  `lastname` varchar(50) NOT NULL,
+  `Country` varchar(50) NOT NULL,
+  `Contact` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `created_at`, `user_type`) VALUES
-(7, 'ADMIN', 'ADMIN', 'admin@example.com', '2025-03-25 05:10:22', 'admin'),
-(11, 'Carlito', '$2y$10$/9qiJRsesEw3MMIirojGguwV0UdxJiV8iLBWzb0/889s60.aIsGSK', 'carlitotagarro27@gmail.com', '2025-05-21 14:36:09', 'booker');
+INSERT INTO `users` (`user_id`, `username`, `password`, `email`, `created_at`, `user_type`, `firstname`, `lastname`, `Country`, `Contact`) VALUES
+(7, 'ADMIN', 'ADMIN', 'admin@example.com', '2025-03-25 05:10:22', 'admin', '', '', '', ''),
+(11, 'Carlito', '$2y$10$/9qiJRsesEw3MMIirojGguwV0UdxJiV8iLBWzb0/889s60.aIsGSK', 'carlitotagarro27@gmail.com', '2025-05-21 14:36:09', 'booker', '', '', '', '');
 
 --
 -- Indexes for dumped tables
@@ -132,7 +141,7 @@ ALTER TABLE `events`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=192;
+  MODIFY `ticket_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
 
 --
 -- AUTO_INCREMENT for table `users`
