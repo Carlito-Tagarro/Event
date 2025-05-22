@@ -14,6 +14,8 @@ if (!isset($_GET['event_id'])) {
 
 $connection = CONNECTIVITY();
 
+// NEED TO ADD FILL UP FORM WILL DO TOMORROW 
+
 $event_id = intval($_GET['event_id']);
 $sqlMAN = "SELECT * FROM events WHERE event_id = $event_id";
 $result = $connection->query($sqlMAN);
