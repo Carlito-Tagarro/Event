@@ -1,0 +1,122 @@
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+}
+html, body {
+    height: 100%; 
+    margin: 0; 
+}
+header {
+    background-color:   #111;
+    color: crimson;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 1rem; 
+}
+nav {
+    background-color: #333;
+    padding: 20px; 
+    text-align: center;
+    position: static;
+    height: 40px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+nav a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-size: .8rem; 
+    padding: 10px 15px; 
+}
+nav a:hover {
+    text-decoration: underline;
+}
+.event_container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    width: 100%; 
+}
+.event_card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    text-align: center;
+}
+.event_card h4 {
+    margin: 10px 0;
+    color: #333;
+}
+.event_card p {
+    margin: 5px 0;
+    color: #555;
+}
+.event_card a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.event_card a:hover {
+    background-color: #0056b3;
+}
+footer {
+    background-color: #111; 
+    color: #fff;
+    text-align: center;
+    padding: 10px 0px;
+    
+    position: static; 
+    width: 100%; 
+
+}
+.logout-btn {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+.logout-btn:hover {
+    background-color: #c9302c;
+}
+
+.bannerindex1{
+    width: 100%;
+    object-fit: cover;
+}
+
+.bannerindex1 img {
+    width: 100%;
+    height: auto;
+    max-height: 300px; 
+    object-fit: cover;
+}
+
+.bannerindex img {
+    width: 100%;
+    height: auto;
+    max-height: 300px; 
+    object-fit: cover;
+}
+
+.formoviebackground {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 1200px; 
+}
