@@ -20,11 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $targetfile = $target_direction . basename($_FILES['image_file']['name']);
         if (move_uploaded_file($_FILES['image_file']['tmp_name'], $targetfile)) {
             $image_url = $targetfile;
-        } else {
+        } 
+        else {
             echo "Error uploading the image.";
             exit;
         }
-    } else {
+    } 
+    else {
         echo "No image uploaded or an error occurred.";
         exit;
     }
@@ -32,11 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql = "INSERT INTO events (event_name, event_date, venue, available_seats, description, event_ticket_price, category, image_url, created_at) 
             VALUES ('$event_name', '$event_date', '$venue', $available_seats, '$description', $event_ticket_price, '$category', '$image_url', NOW())";
 
-    if ($conn->query($sql) === TRUE) {
+    if ($conn->query($sql) == TRUE) {
         header("Location: admin.php");
         echo "Event added successfully!";
         
-    } else {
+    } 
+    else {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
