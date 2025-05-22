@@ -8,7 +8,7 @@
     $connection =CONNECTIVITY(); 
 
 
-    $sqlMan = "SELECT ticket_id, user_id, event_id, booking_date, number_of_tickets, total_price FROM tickets WHERE user_id = ?";
+    $sqlMan = "SELECT ticket_id, user_id, event_id, booking_date, number_of_tickets, total_price , payment_status FROM tickets WHERE user_id = ?";
     $stmt = $connection->prepare($sqlMan);
     $stmt->bind_param("i", $user_id);
     $stmt->execute();
@@ -68,18 +68,23 @@
             </thead>
             <tbody>
                 <?php while ($rows = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($rows['ticket_id']); ?></td>
-                        <td><?php echo htmlspecialchars($rows['event_id']); ?></td>
-                        <td><?php echo htmlspecialchars($rows['booking_date']); ?></td>
-                        <td><?php echo htmlspecialchars($rows['number_of_tickets']); ?></td>
-                        <td><?php echo htmlspecialchars($rows['total_price']); ?></td>
-                    </tr>
+                   <?php if($rows['payment_status'] == 'Pending') { ?>
+                        <tr>
+                              <p>You have not booked any tickets yet</p>
+                        </tr>
+                        <?php } else{?>
+                        <tr> 
+                            <td><?php echo htmlspecialchars($rows['ticket_id']); ?></td>
+                            <td><?php echo htmlspecialchars($rows['event_id']); ?></td>
+                            <td><?php echo htmlspecialchars($rows['booking_date']); ?></td>
+                            <td><?php echo htmlspecialchars($rows['number_of_tickets']); ?></td>
+                            <td><?php echo htmlspecialchars($rows['total_price']); ?></td>
+
+                        </tr>
+                        <?php } ?>
                 <?php endwhile; ?>
             </tbody>
         </table>
-    <?php else: ?>
-        <p>You have not booked any tickets yet.</p>
     <?php endif; ?>
 
   

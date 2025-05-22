@@ -59,11 +59,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $total_price = $event['event_ticket_price'] * $number_of_tickets;
         $insert_ticket = "INSERT INTO tickets (user_id, event_id, number_of_tickets, total_price, booking_date, payment_status) VALUES (?, ?, ?, ?, ?, ?)";
-        $stmt = $conn->prepare($insert_ticket);
+        $stmt = $connection->prepare($insert_ticket);
         $stmt->bind_param("iiidss", $user_id, $event_id, $number_of_tickets, $total_price, $booking_date, $payment_status);
         $stmt->execute();
 
-        $conn->commit();
+        $connection->commit();
 
         $mail = new PHPMailer(true);
         try {
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-$stmt->close();
+
 DISCONNECTIVITY($connection);
 ?>
 
