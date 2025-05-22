@@ -51,7 +51,7 @@ $result = $connection->query($sqlMAN);
         <br>
         <br>
         <div class="formoviebackground">
-        <h4 style="text-align: center; color: #fff;" >AVAILABLE EVENTS</h4>
+        <h4 style="text-align: center; color: #fff;" >FEATURED EVENTS</h4>
 
         <?php if ($result->num_rows > 0): ?>
             <div class="event_container">
