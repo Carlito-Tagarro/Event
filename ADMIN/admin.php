@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   
     if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] == 0) {
-        $target_direction = "images/";
+        $target_direction = "images/*";
         $targetfile = $target_direction . basename($_FILES['image_file']['name']);
         if (move_uploaded_file($_FILES['image_file']['tmp_name'], $targetfile)) {
             $image_url = $targetfile;
