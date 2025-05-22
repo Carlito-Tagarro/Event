@@ -49,12 +49,14 @@
         <?php endif; ?>
     </nav>
 <body>
+    <br>
+    
     <div class="profile_header">
         <h2>Welcome, <?php echo htmlspecialchars($user['username']); ?></h2>
         <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
     </div>
 
-    <h1>Your Booked Tickets</h1>
+    <h1 style="text-align:center;">Your Booked Tickets</h1>
     <?php if ($result->num_rows > 0): ?>
         <table>
             <thead>
