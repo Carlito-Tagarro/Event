@@ -71,9 +71,7 @@
             <tbody>
                 <?php while ($rows = $result->fetch_assoc()): ?>
                    <?php if($rows['payment_status'] == 'Pending') { ?>
-                        <tr>
-                              <p>You have not booked any tickets yet</p>
-                        </tr>
+                                                 
                         <?php } else{?>
                         <tr> 
                             <td><?php echo htmlspecialchars($rows['ticket_id']); ?></td>
@@ -87,9 +85,8 @@
                 <?php endwhile; ?>
             </tbody>
         </table>
+    <?php else: ?>
+        <p>You have not booked any tickets yet</p>
     <?php endif; ?>
-
-  
-   
 </body>
 </html>

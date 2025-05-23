@@ -16,6 +16,8 @@ if (isset($_GET['alert'])) {
         echo "<script>alert('Failed to send on your email.');</script>";
     }
 }
+
+
 $connection = CONNECTIVITY();
 ?>
 
@@ -37,8 +39,8 @@ $connection = CONNECTIVITY();
     
 
     <header>
-    <div>
-       <a href="index.php" class="home-button">Home</a>
+    <div class = "home_container">
+       <a href="index.php" class="home_button">Home</a>
     </div>
     </header>
 
