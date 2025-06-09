@@ -38,6 +38,7 @@
     <link rel="stylesheet" href="CSS/profile.css"> 
     <title>User Profile</title>
 </head>
+
 <nav>
         <a href="index.php">Home</a>
         <?php if (isset($_SESSION['user_id'])): ?>
@@ -56,7 +57,7 @@
         <p>Email: <?php echo htmlspecialchars($user['email']); ?></p>
     </div>
 
-    <h1 style="text-align:center;">Your Booked Tickets</h1>
+    <h1 style="text-align:center; ;">Your Booked Tickets</h1>
     <?php if ($result->num_rows > 0): ?>
         <table>
             <thead>
@@ -64,8 +65,7 @@
                     <th>Ticket ID</th>
                     <th>Event ID</th>
                     <th>Booking Date</th>
-                    <th>Number of Tickets</th>
-                    <th>Ticket Price</th>
+                  
                 </tr>
             </thead>
             <tbody>
@@ -77,16 +77,14 @@
                             <td><?php echo htmlspecialchars($rows['ticket_id']); ?></td>
                             <td><?php echo htmlspecialchars($rows['event_id']); ?></td>
                             <td><?php echo htmlspecialchars($rows['booking_date']); ?></td>
-                            <td><?php echo htmlspecialchars($rows['number_of_tickets']); ?></td>
-                            <td><?php echo htmlspecialchars($rows['total_price']); ?></td>
-
+                          
                         </tr>
                         <?php } ?>
                 <?php endwhile; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p>You have not booked any tickets yet</p>
+        <p >You have not booked any tickets yet</p>
     <?php endif; ?>
 </body>
 </html>

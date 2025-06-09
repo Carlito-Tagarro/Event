@@ -14,7 +14,7 @@ if (!isset($_GET['event_id'])) {
 
 $connection = CONNECTIVITY();
 
-// NEED TO ADD FILL UP FORM WILL DO TOMORROW 
+
 
 $event_id = intval($_GET['event_id']);
 $sqlMAN = "SELECT * FROM events WHERE event_id = $event_id";
@@ -60,16 +60,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $booking_date = date('Y-m-d H:i:s'); 
 
         $total_price = $event['event_ticket_price'] * $number_of_tickets;
-        $insert_ticket = "INSERT INTO tickets (user_id, event_id, number_of_tickets, total_price, booking_date, payment_status) VALUES (?, ?, ?, ?, ?, ?)";
+        $ticket_ids = [];
+        $insert_ticket = "INSERT INTO tickets (user_id, event_id, number_of_tickets, total_price, booking_date, payment_status) VALUES (?, ?, 1, ?, ?, ?)";
         $stmt = $connection->prepare($insert_ticket);
-        $stmt->bind_param("iiidss", $user_id, $event_id, $number_of_tickets, $total_price, $booking_date, $payment_status);
-        $stmt->execute();
+
+        
+        for ($i = 0; $i < $number_of_tickets; $i++) {
+            $stmt->bind_param("iidss", $user_id, $event_id, $event['event_ticket_price'], $booking_date, $payment_status);
+    
+            $stmt->bind_param("iidss", $user_id, $event_id, $event['event_ticket_price'], $booking_date, $payment_status);
+            $stmt->execute();
+            $ticket_ids[] = $stmt->insert_id;
+        }
 
         $connection->commit();
 
+        $ticket_ids_str = implode(',', $ticket_ids);
+
         $mail = new PHPMailer(true);
         try {
-            
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com'; 
             $mail->SMTPAuth = true;
@@ -78,7 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; 
             $mail->Port = 465;
 
-            
             $mail->setFrom('carlitotagarro27@gmail.com', 'Event Booking'); 
             $mail->addAddress($user_email); 
             $mail->isHTML(true);
@@ -90,19 +98,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <p><strong>Date:</strong> {$event['event_date']}</p>
                 <p><strong>Venue:</strong> {$event['venue']}</p>
                 <p><strong>Total Price:</strong> ₱" . number_format($total_price, 2) . "</p>
-                <p><a href='http://yourwebsite.com/confirm_payment.php?ticket_id={$stmt->insert_id}' style='display: inline-block; padding: 10px 20px; color: #fff; background-color: #28a745; text-decoration: none; border-radius: 5px;'>Confirm Payment</a></p>
+                <p><a href='http://yourwebsite.com/confirm_payment.php?ticket_ids={$ticket_ids_str}' style='display: inline-block; padding: 10px 20px; color: #fff; background-color: #28a745; text-decoration: none; border-radius: 5px;'>Confirm Payment</a></p>
             ";
 
             $mail->send();
         } catch (Exception $e) {
-            
             error_log("Email could not be sent. Mailer Error: {$mail->ErrorInfo}");
             echo "Email could not be sent. Please try again later.";
         }
-        header("Location: confirmation.php?ticket_id={$stmt->insert_id}&alert=sent");
+        header("Location: confirmation.php?ticket_ids={$ticket_ids_str}&alert=sent");
         exit();
     } catch (Exception $e) { 
-        $conn->rollback();
+        $connection->rollback();
         echo "Error: " . $e->getMessage();
     }
 }
