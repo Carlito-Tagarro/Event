@@ -62,7 +62,7 @@ $result = $connection->query($sqlMAN);
             </p>
         </div>
         <div style="flex: 1; display: flex; justify-content: center;">
-            <img src="images/eventImage.jpg" alt="" style="width: 100%; max-width: 650px; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
+            <img src="images/eventImage.jpg" alt="" style="width: 100%; max-width: 600px; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
         </div>
     </div>
      <div class="formoviebackground">
