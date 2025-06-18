@@ -6,10 +6,7 @@ include 'connection.php';
 $connection = CONNECTIVITY();
 
 
-$update_seats = "UPDATE events e JOIN tickets t ON e.event_id =  t.event_id SET e.seats_booked = e.seats_booked WHERE t.payment_status = 'confirmed'";
-$connection->query($update_seats);
-
-
+// Display all events with available seats
 $sqlMAN = "SELECT event_id, event_name, event_date, venue, available_seats, 
                description, created_at, event_ticket_price, seats_booked, category, image_url
         FROM events

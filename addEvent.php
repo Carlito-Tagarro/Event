@@ -10,8 +10,9 @@ if (!isset($_SESSION['user_type']) || $_SESSION['user_type'] !== 'admin') {
 
 $conn = CONNECTIVITY();
 
-
+// Automatically delete past events 
 $conn->query("DELETE FROM events WHERE event_date < (NOW() - INTERVAL 1 DAY)");
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_event_id'])) {
     $delete_id = intval($_POST['delete_event_id']);
@@ -20,8 +21,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_event_id'])) {
     exit;
 }
 
+// Handle event addition if form is submitted and not a delete request
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['delete_event_id'])) {
    
+    
     $event_name = $_POST['event_name'];
     $event_date = $_POST['event_date'];
     $venue = $_POST['venue'];
@@ -30,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['delete_event_id'])) {
     $event_ticket_price = $_POST['event_ticket_price'];
     $category = $_POST['category'];
 
-  
+    // Handles the image upload
     if (isset($_FILES['image_file']) && $_FILES['image_file']['error'] == 0) {
         $target_direction = "images/";
         $targetfile = $target_direction . basename($_FILES['image_file']['name']);
@@ -47,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !isset($_POST['delete_event_id'])) {
         exit;
     }
 
+    
     $sql = "INSERT INTO events (event_name, event_date, venue, available_seats, description, event_ticket_price, category, image_url, created_at) 
             VALUES ('$event_name', '$event_date', '$venue', $available_seats, '$description', $event_ticket_price, '$category', '$image_url', NOW())";
 
@@ -69,6 +73,7 @@ DISCONNECTIVITY($conn);
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/addEvent.css">
@@ -77,6 +82,7 @@ DISCONNECTIVITY($conn);
    
 </head>
 <body>
+    
     <header class="header">
         <h1><a href="admin.php" style="color:crimson;text-decoration:none;">Admin Dashboard</a></h1>
             
@@ -89,8 +95,9 @@ DISCONNECTIVITY($conn);
             </ul>
         </nav>
     </header>
-    
+    <!-- Event addition form -->
     <div class="main-flex-container">
+       
         <div class="form-container">
             <h2 style="margin-bottom:0;">Add Event</h2>
             <br><br>
@@ -123,7 +130,7 @@ DISCONNECTIVITY($conn);
             </form>
         </div>
 
-        
+        <!-- List of existing events with delete option -->
         <div class="events-container">
             <h2>Listed Events</h2>
             <table style="width:100%;border-collapse:collapse;">
@@ -145,6 +152,7 @@ DISCONNECTIVITY($conn);
                         <td><?php echo htmlspecialchars($row['venue']); ?></td>
                         <td><?php echo htmlspecialchars($row['category']); ?></td>
                         <td>
+                            <!-- Delete event button -->
                             <form method="POST" action="" onsubmit="return confirm('Are you sure you want to delete this event?');" style="display:inline;">
                                 <input type="hidden" name="delete_event_id" value="<?php echo $row['event_id']; ?>">
                                 <button type="submit" style="background:#e74c3c;color:#fff;border:none;padding:5px 10px;border-radius:3px;cursor:pointer;">Delete</button>

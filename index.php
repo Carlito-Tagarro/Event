@@ -5,6 +5,8 @@ include 'connection.php';
 
 $connection = CONNECTIVITY();
 
+$userId = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+
 
 $sqlMAN = "SELECT event_id, event_name, event_date, venue, available_seats, 
                description, created_at, event_ticket_price, seats_booked, category, image_url
@@ -25,10 +27,6 @@ $result = $connection->query($sqlMAN);
     <link rel="stylesheet" href="CSS/index.css"> 
   
 </head>
-
-
-</style>
-
 
 <body>
 
@@ -102,7 +100,6 @@ $result = $connection->query($sqlMAN);
         <p>&copy; <?php echo date("Y"); ?> EVENTURE The No.1 Booking Place. All rights reserved.</p>
         </footer>
     </div>
-
 
     <?php
 

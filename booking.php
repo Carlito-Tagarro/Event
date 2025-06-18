@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 include 'connection.php';
 
 if (!isset($_SESSION['user_id'])) {
@@ -14,9 +15,8 @@ if (!isset($_GET['event_id'])) {
 
 $connection = CONNECTIVITY();
 
-
-
 $event_id = intval($_GET['event_id']);
+
 $sqlMAN = "SELECT * FROM events WHERE event_id = $event_id";
 $result = $connection->query($sqlMAN);
 
@@ -27,6 +27,7 @@ if ($result->num_rows == 0) {
 
 $event = $result->fetch_assoc();
 
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -34,6 +35,7 @@ require 'PHPMAILMAN/src/Exception.php';
 require 'PHPMAILMAN/src/PHPMailer.php';
 require 'PHPMAILMAN/src/SMTP.php';
 
+// Handle booking form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user_id = $_SESSION['user_id'];
     $number_of_tickets = intval($_POST['number_of_seats']);
@@ -53,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
+    // Begin transaction for booking
     $connection->begin_transaction();
 
     try {
@@ -64,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $insert_ticket = "INSERT INTO tickets (user_id, event_id, number_of_tickets, total_price, booking_date, payment_status) VALUES (?, ?, 1, ?, ?, ?)";
         $stmt = $connection->prepare($insert_ticket);
 
-        
         for ($i = 0; $i < $number_of_tickets; $i++) {
             $stmt->bind_param("iidss", $user_id, $event_id, $event['event_ticket_price'], $booking_date, $payment_status);
     
@@ -77,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $ticket_ids_str = implode(',', $ticket_ids);
 
+        // Send confirmation email to user
         $mail = new PHPMailer(true);
         try {
             $mail->isSMTP();
@@ -113,7 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "Error: " . $e->getMessage();
     }
 }
-
 
 DISCONNECTIVITY($connection);
 ?>

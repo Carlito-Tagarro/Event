@@ -5,21 +5,26 @@ $registration_success = false;
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
+    
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
     $email = trim($_POST['email']);
     $user_type = 'booker'; 
 
+    //Hash the password for security
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
 
+    // Validate required fields
     if (empty($username) || empty($password) || empty($email)) {
         echo "All fields are required.";
         exit;
     }
 
+   
     $connection = CONNECTIVITY();
 
+    // Check if username or email already exists
     $stmt = $connection->prepare("SELECT * FROM users WHERE username = ? OR email = ?");
     $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
@@ -32,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ssss", $username, $hashed_password, $email, $user_type);
 
         if ($stmt->execute()) {
+            
             $registration_success = true;
         } else {
             echo "Error: " . $stmt->error;
@@ -56,6 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="form_container">
         <h2>Register</h2>
        
+        <!-- Success notification area -->
         <div id="successNotification" class="notification-success"></div>
         <form method="POST" action="">
             <div class="form_group">
@@ -78,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <?php if ($registration_success): ?>
     <script>
+        // Show success notification and redirect after 2 seconds
         var notif = document.getElementById('successNotification');
         notif.textContent = "Registration successful!";
         notif.style.display = "block";

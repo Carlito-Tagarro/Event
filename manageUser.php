@@ -1,9 +1,12 @@
 <?php 
+
 session_start();
+
 include 'connection.php';
 
 $conn = CONNECTIVITY();
 
+// Handles user deletion 
 if (isset($_GET['delete_user_id'])) {
     $delete_id = intval($_GET['delete_user_id']);
     $stmt = $conn->prepare("DELETE FROM users WHERE user_id = ?");
@@ -22,6 +25,7 @@ if ($result) {
     }
 }
 
+
 DISCONNECTIVITY($conn);
 ?>
 <!DOCTYPE html>
@@ -36,7 +40,6 @@ DISCONNECTIVITY($conn);
 <body>
      <header class="header">
         <h1><a href="admin.php" style="color:crimson;text-decoration:none;">Admin Dashboard</a></h1>
-            
         <nav>
             <ul>
                 <li><a href="addEvent.php">Add Event</a></li>
@@ -47,6 +50,8 @@ DISCONNECTIVITY($conn);
         </nav>
     </header>
     <main style="padding: 2rem;">
+        <!-- User accounts table --> 
+         
         <h2>USER ACCOUNTS</h2>
         <table border="1" cellpadding="8" cellspacing="0">
             <thead>

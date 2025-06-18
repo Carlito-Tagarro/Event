@@ -6,8 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = trim($_POST['password']);
 
-
-    $connection = CONNECTIVITY();
+    $connection = CONNECTIVITY(); 
 
     $stmt = $connection->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
@@ -17,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($results->num_rows > 0) {
         $user_acc = $results->fetch_assoc();
 
+        // Verify password using password hashing
         if(password_verify($password, $user_acc['password'])) {
             $_SESSION['user_id'] = $user_acc['user_id'];
             $_SESSION['username'] = $user_acc['username'];

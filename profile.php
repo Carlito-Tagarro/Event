@@ -1,31 +1,33 @@
 <?php
- include 'connection.php'; 
 
- session_start();
- $user_id = $_SESSION['user_id']; 
+include 'connection.php'; 
 
- $connection =CONNECTIVITY(); 
+session_start();
+$user_id = $_SESSION['user_id']; 
 
- 
- $sqlMan = "SELECT t.ticket_id, t.user_id, t.event_id, t.booking_date, t.number_of_tickets, t.total_price, t.payment_status, e.image_url, e.event_name, e.event_date
-            FROM tickets t
-            JOIN events e ON t.event_id = e.event_id
-            WHERE t.user_id = ?";
- $stmt = $connection->prepare($sqlMan);
- $stmt->bind_param("i", $user_id);
- $stmt->execute();
- $result = $stmt->get_result();
+$connection =CONNECTIVITY(); 
 
- $user_sql = "SELECT username, email FROM users WHERE user_id = ?";
- $user_stmt = $connection->prepare($user_sql);
- $user_stmt->bind_param("i", $user_id);
- $user_stmt->execute();
- $user_result = $user_stmt->get_result();
- $user = $user_result->fetch_assoc();
+// Fetch user's booked tickets with event details
+$sqlMan = "SELECT t.ticket_id, t.user_id, t.event_id, t.booking_date, t.number_of_tickets, t.total_price, t.payment_status, e.image_url, e.event_name, e.event_date
+           FROM tickets t
+           JOIN events e ON t.event_id = e.event_id
+           WHERE t.user_id = ?";
+$stmt = $connection->prepare($sqlMan);
+$stmt->bind_param("i", $user_id);
+$stmt->execute();
+$result = $stmt->get_result();
 
- $user_result->close();
- $stmt->close();
- DISCONNECTIVITY($connection);
+// Fetch user profile information
+$user_sql = "SELECT username, email FROM users WHERE user_id = ?";
+$user_stmt = $connection->prepare($user_sql);
+$user_stmt->bind_param("i", $user_id);
+$user_stmt->execute();
+$user_result = $user_stmt->get_result();
+$user = $user_result->fetch_assoc();
+
+$user_result->close();
+$stmt->close();
+DISCONNECTIVITY($connection);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +35,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="CSS/profile.css">
-   
 </head>
 <body>
   
@@ -50,6 +51,7 @@
     </nav>
     <main>
         <div class="profile-container">
+            <!-- User profile header -->
             <div class="profile_header">
                 <h2><?php echo htmlspecialchars($user['username']); ?></h2>
                 <p><?php echo htmlspecialchars($user['email']); ?></p>
@@ -83,6 +85,7 @@
                                         </div>
                                     </div>
                                     <div class="eticket-barcode">
+                                        <!-- QR code for ticket ID -->
                                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x40&data=<?php echo urlencode($rows['ticket_id']); ?>" alt="Barcode">
                                         <div class="eticket-barcode-code"><?php echo htmlspecialchars($rows['ticket_id']); ?></div>
                                     </div>
