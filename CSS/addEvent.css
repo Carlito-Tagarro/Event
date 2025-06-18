@@ -1,0 +1,103 @@
+body {
+    background: #f7f7f7;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+.main-flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 32px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+}
+.form-container {
+    background: #fff;
+    max-width: 420px;
+    min-width: 320px;
+    margin: 0;
+    padding: 32px 28px 24px 28px;
+    border-radius: 10px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    flex: 1 1 350px;
+}
+.events-container {
+    background: #fff;
+    max-width: 650px;
+    min-width: 320px;
+    padding: 32px 28px 24px 28px;
+    border-radius: 10px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    flex: 2 1 500px;
+}
+
+h2 {
+    text-align: left;
+    color: #2d3e50;
+    margin-top: 32px;
+}
+form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #444;
+}
+form input[type="text"],
+form input[type="datetime-local"],
+form input[type="number"],
+form textarea,
+form input[type="file"] {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background: #fafafa;
+    box-sizing: border-box;
+}
+form textarea {
+    min-height: 60px;
+    resize: vertical;
+}
+button[type="submit"] {
+    width: 100%;
+    padding: 10px 0;
+    background: #c0392b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+button[type="submit"]:hover {
+    background: #a93226;
+}
+@media (max-width: 1100px) {
+    .main-flex-container {
+    flex-direction: column;
+    align-items: stretch;
+    }
+.form-container, .events-container {
+        max-width: 100%;
+        min-width: 0;
+        margin-bottom: 24px;
+        }
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+th {
+    background: #f2f2f2;
+}
+tr:hover {
+    background: #f9f9f9;
+}

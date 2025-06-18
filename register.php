@@ -1,6 +1,8 @@
 <?php
 include 'connection.php'; 
 
+$registration_success = false; 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $username = trim($_POST['username']);
@@ -30,8 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ssss", $username, $hashed_password, $email, $user_type);
 
         if ($stmt->execute()) {
-            echo "Registration successful!";
-            header("Location: sign_in.php");
+            $registration_success = true;
         } else {
             echo "Error: " . $stmt->error;
             header("Location: register.php");
@@ -42,7 +43,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     DISCONNECTIVITY($connection);
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,10 +50,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
     <link rel="stylesheet" href="CSS/register.css"> 
+    
 </head>
 <body>
     <div class="form_container">
         <h2>Register</h2>
+       
+        <div id="successNotification" class="notification-success"></div>
         <form method="POST" action="">
             <div class="form_group">
                 <label for="username">Username:</label>
@@ -73,5 +76,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <a href="sign_in.php">Already have an account? Sign in</a>
         </div>
     </div>
+    <?php if ($registration_success): ?>
+    <script>
+        var notif = document.getElementById('successNotification');
+        notif.textContent = "Registration successful!";
+        notif.style.display = "block";
+        setTimeout(function() {
+            window.location.href = "sign_in.php";
+        }, 2000);
+    </script>
+    <?php endif; ?>
 </body>
 </html>

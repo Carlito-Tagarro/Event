@@ -10,7 +10,11 @@ if (!isset($_SESSION['user_id'])) {
 
 if (isset($_GET['alert'])) {
     if ($_GET['alert'] == 'sent') {
-        echo "<script>alert('Confirmation has been sent to your email!');</script>";
+        echo "<script>
+            alert('Confirmation has been sent to your email!');
+            window.location.href = 'index.php';
+        </script>";
+        
        
     } elseif ($_GET['alert'] == 'fail') {
         echo "<script>alert('Failed to send on your email.');</script>";
@@ -38,12 +42,7 @@ $connection = CONNECTIVITY();
     
     
 
-    <header>
-    <div class = "home_container">
-       <a href="index.php" class="home_button">Home</a>
-    </div>
-    </header>
-
+    
    <?php
 
     DISCONNECTIVITY($connection);

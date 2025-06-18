@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
-    background: linear-gradient(to right, #4e54c8, #8f94fb); 
+    background: #222; 
     color: #fff;
     margin: 0;
     padding: 0;
@@ -62,7 +62,7 @@ input[type="password"]:focus {
 .button_submit {
     width: 100%;
     padding: 12px;
-    background-color: #28a745;
+    background-color: #d90429;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -73,7 +73,7 @@ input[type="password"]:focus {
 }
 
 .button_submit:hover {
-    background-color: #218838;
+    background-color: #d90429;
     transform: scale(1.03);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

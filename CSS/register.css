@@ -64,7 +64,7 @@ input[type="email"]:focus{
 .button_submit {
     width: 100%;
     padding: 14px; 
-    background-color: #28a745;
+    background-color: #d90429;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -75,7 +75,7 @@ input[type="email"]:focus{
 }
 
 .button_submit:hover {
-    background-color: #218838;
+    background-color: #d90429;
     transform: scale(1.03);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -98,5 +98,20 @@ input[type="email"]:focus{
     text-decoration: underline;
     color: #0056b3;
 }
-
+.notification-success {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    display: none;
+    position: fixed;
+    left: 30px;
+    bottom: 30px;
+    z-index: 9999;
+    min-width: 250px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
 

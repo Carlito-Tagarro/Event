@@ -6,15 +6,14 @@ include 'connection.php';
 $connection = CONNECTIVITY();
 
 
-$update_seats = "UPDATE events e JOIN tickets t ON e.event_id =  t.event_id SET e.seats_booked = e.seats_booked WHERE t.payment_status = 'confirmed'";
-$connection->query($update_seats);
-
-
 $sqlMAN = "SELECT event_id, event_name, event_date, venue, available_seats, 
                description, created_at, event_ticket_price, seats_booked, category, image_url
         FROM events
-        WHERE available_seats > 0"; 
+        WHERE available_seats > 0
+        ORDER BY RAND()
+        LIMIT 3"; 
 $result = $connection->query($sqlMAN);
+
 ?>
 
 <!DOCTYPE html>
@@ -26,10 +25,15 @@ $result = $connection->query($sqlMAN);
     <link rel="stylesheet" href="CSS/index.css"> 
   
 </head>
+
+
+</style>
+
+
 <body>
 
     <header>
-        <h1>Eventure</h1>
+        <h1>EVENTURE</h1>
     </header>
     <nav>
         <a href="index.php"><strong>HOME</strong></a>
@@ -44,13 +48,24 @@ $result = $connection->query($sqlMAN);
     </nav>
 
     <main>
-      
-        
-        <div class="bannerindex1"><img src="images/bannerindex.png" alt=""></div>
-        <br>
-        <br>
-        <br>
-        <div class="formoviebackground">
+    <div style="display: flex; align-items: center; justify-content: center; min-height: 500px; gap: 3rem; background: #fafafa;  margin: 2rem 0;">
+        <div style="flex: 1; max-width: 500px; padding: 2rem; margin: 0 2rem">
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <div style="width: 32px; height: 3px; background: #888; border-radius: 2px;"></div>
+                <span style="color: #d90429; font-weight: 600; letter-spacing: 1px; font-size: 0.95rem;">EVENTURE</span>
+            </div>
+            <h2 style="font-size: 2rem; font-weight: 800; color: #222; margin: 0 0 1rem 0; line-height: 1.2;">
+                Watch Shows and Concerts<br>with Friends &amp; Family
+            </h2>
+            <p style="color: #444; font-size: 1.05rem; margin-bottom: 2rem;">
+                Unlocked your unforgettable experience here at Eventure and book your tickets now.
+            </p>
+        </div>
+        <div style="flex: 1; display: flex; justify-content: center;">
+            <img src="images/eventImage.jpg" alt="" style="width: 100%; max-width: 650px; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
+        </div>
+    </div>
+     <div class="formoviebackground">
         <h4 style="text-align: center; color: #fff;" >FEATURED EVENTS</h4>
 
         <?php if ($result->num_rows > 0): ?>
@@ -74,18 +89,20 @@ $result = $connection->query($sqlMAN);
                     </div>
                 <?php endwhile; ?>
             </div> 
-        <?php else: ?>
-            <p style="text-align: center;">No events available at the moment.</p>
         <?php endif; ?>
+
+        <button class="view_more_events"><a href="event.php">View more Events</a></button>
         </div>
-    </main>
+</main>
     <br>
     <br>
     <br>
     <div class="footer">
         <footer>
-        <p>&copy; <?php echo date("Y"); ?> Eventure The No.1 Booking Place. All rights reserved.</p>
-        </footer></div>
+        <p>&copy; <?php echo date("Y"); ?> EVENTURE The No.1 Booking Place. All rights reserved.</p>
+        </footer>
+    </div>
+
 
     <?php
 

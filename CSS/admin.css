@@ -1,0 +1,110 @@
+body {
+            background: #f0f0f0;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .container {
+            max-width: 420px;
+            margin: 60px auto;
+            background: #ece6e6a1;
+            border-radius: 10px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            padding: 40px 30px 30px 30px;
+            text-align: center;
+            
+        }
+        header {
+            background: #111;
+            color: #fff;
+            padding: 24px 0 12px 0;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+            letter-spacing: 1px;
+            margin-left: 2rem;
+        }
+        header a{
+        color: crimson;
+        text-decoration: none;
+        margin-right: 2rem;
+        
+        
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0 0;
+            display: flex;
+            align-items: center;
+        }
+        nav {
+            margin-left: auto;
+        }
+        nav ul li {
+            display: inline-block;
+            margin: 0 8px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: text-decoration 0.2s;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .admin-card {
+            background: #f9fafb;
+            border: 1.5px solid #e0e3e8;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(44,62,80,0.06);
+            padding: 32px 20px 24px 20px;
+            margin-top: 28px;
+            margin-bottom: 10px;
+            transition: box-shadow 0.2s;
+        }
+        .admin-card:hover {
+            box-shadow: 0 6px 24px rgba(44,62,80,0.12);
+        }
+        .subtitle {
+            color: #6c7a89;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            margin-top: -10px;
+            letter-spacing: 0.2px;
+        }
+        .admin-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 0;
+        }
+        .admin-btn {
+            display: block;
+            padding: 14px 0;
+            background: linear-gradient(90deg, #2d3e50 70%, #34495e 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            letter-spacing: 0.5px;
+        }
+        .admin-btn:hover {
+            background: linear-gradient(90deg, #1a2533 80%, #2d3e50 100%);
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 4px 16px rgba(44,62,80,0.10);
+        }
+        h2 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: #2d3e50;
+        }

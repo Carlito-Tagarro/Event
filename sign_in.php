@@ -29,9 +29,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         } else {
            echo "<script>alert('Incorrect password. Please try again.');</script>";
-           
-           
         }
+    } else {
+        echo "<script>alert('Account does not exist.');</script>";
     }
 
     $stmt->close();
